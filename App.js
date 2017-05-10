@@ -1,6 +1,10 @@
 import React from 'react'
 
+import { Provider } from 'react-redux'
+
 import { StyleSheet, Text, View } from 'react-native'
+
+import store from './store'
 
 export default class App extends React.Component {
   render() {
