@@ -7,8 +7,11 @@ import concat from 'lodash/concat'
 
 import {
   reducer as facesReducer,
+} from './core/faces/reducer'
+
+import {
   saga as facesSaga,
-} from './core/faces'
+} from './core/faces/saga'
 
 const logger = createLogger()
 
