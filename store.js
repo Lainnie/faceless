@@ -1,33 +1,34 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { AsyncStorage } from 'react-native'
-//import createSagaMiddleware from 'redux-saga'
+import createSagaMiddleware from 'redux-saga'
 import { persistStore, autoRehydrate } from 'redux-persist'
 import { createLogger } from 'redux-logger';
 import concat from 'lodash/concat'
 
 import {
-  reducer as facesReducer
+  reducer as facesReducer,
+  saga as facesSaga,
 } from './core/faces'
 
 const logger = createLogger()
 
-//const sagas = function* () {
-  //yield concat(listsSaga, manageExperienceSaga, manageListSaga, manageUserSaga)
-//}
+const sagas = function* () {
+  yield concat(facesSaga, [])
+}
 
 const reducers = combineReducers({
   faces: facesReducer,
 })
 
-//const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware()
 
 const store = createStore(
   reducers,
-  //applyMiddleware(sagaMiddleware, logger),
+  applyMiddleware(sagaMiddleware, logger),
   autoRehydrate()
 )
 
-//sagaMiddleware.run(sagas)
+sagaMiddleware.run(sagas)
 
 const purgeReducers = []
 
